@@ -168,7 +168,7 @@ public class StorageVolumePreferenceCategory extends PreferenceCategory {
 
         mItemCache.setKey(KEY_CACHE);
 
-        final boolean showDetails = mVolume == null || mVolume.isPrimary();
+        final boolean showDetails =  ((mVolume == null) && Environment.isExternalStorageEmulated()) || ((mVolume != null) &&mVolume.isPrimary());
         if (showDetails) {
             if (showUsers) {
                 addPreference(new PreferenceHeader(context, currentUser.name));
@@ -314,7 +314,7 @@ public class StorageVolumePreferenceCategory extends PreferenceCategory {
     }
 
     public void updateDetails(MeasurementDetails details) {
-        final boolean showDetails = mVolume == null || mVolume.isPrimary();
+        final boolean showDetails =  ((mVolume == null) && Environment.isExternalStorageEmulated()) || ((mVolume != null) &&mVolume.isPrimary());
         if (!showDetails) return;
 
         // Count caches as available space, since system manages them
